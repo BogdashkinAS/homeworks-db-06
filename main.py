@@ -1,5 +1,6 @@
 import sqlalchemy
 import sqlalchemy as sq
+import os
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from datetime import datetime
 
@@ -176,7 +177,7 @@ def list_author():
     return name_list
 
 def author():
-    name = input('Введите автора (Пушкин, Есенин, Маяковский, Лермонтов, Тютчев: ): ')
+    name = input('Введите автора (Пушкин, Есенин, Маяковский, Лермонтов, Тютчев: ): ').capitalize()
     print()
     name_list = list_author()
     if name in name_list:
@@ -190,14 +191,21 @@ def author():
 
 if __name__ == '__main__':
 
-    BD = ''
-    login = ''
-    password = ''
-    host = ''
-    port = ''
-    base = ''
+    os.environ['base_list'] = ''
+    os.environ['login'] = ''
+    os.environ['password'] = ''
+    os.environ['host'] = ''
+    os.environ['port'] = ''
+    os.environ['base_name'] = ''
 
-    DSN = (f'{BD}://{login}:{password}@{host}:{port}/{base}')
+    base_list = os.environ['base_list']
+    login = os.environ['login']
+    password = os.environ['password']
+    host = os.environ['host']
+    port = os.environ['port']
+    base_name = os.environ['base_name']
+
+    DSN = (f'{base_list}://{login}:{password}@{host}:{port}/{base_name}')
 
     engine = sqlalchemy.create_engine(DSN)
 
